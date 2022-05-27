@@ -1,0 +1,90 @@
+﻿@model Models.HomeModel
+@{
+    Layout = null;
+}
+
+<script src="~/Content/jquery-3.3.1.min.js"></script>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="text-danger">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="text-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        @using (Html.BeginForm("Index", "Client", FormMethod.Post, new { @id = "frmCategory", @enctype = "multipart/form-data" }))
+        {
+            <table>
+                <tr>
+                    <td>
+                        <label>Full Name</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Fname)
+                        @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Last Name</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.LName)
+                        @Html.ValidationMessageFor(model => model.LName, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Address</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Address)
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>EmailId</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.EmailId)
+                        @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>DOB</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.DOB, "{0:yyyy-MM-dd}", new { @type = "date", @required = "required", @max = DateTime.Now.ToString("yyyy-MM-dd") })
+                        @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Save" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+    <br />
+    <br />
+    <div>
+        @{Html.RenderAction("ClientDataList", "Client");}
+    </div>
+</body>
+</html>

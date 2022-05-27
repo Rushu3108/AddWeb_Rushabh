@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Models.HomeModel>
+@{
+    Layout = null;
+}
+
+<div>    
+    <table>
+        <tr>
+            <td>
+                <label>Search</label>
+            </td>
+            <td>
+                @Html.TextBox("txtSearch")
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="button" value="Search" onclick="GetSearchData()" />
+            </td>
+        </tr>
+    </table>   
+</div>
+<table id="example1">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                EmailID
+            </th>
+            <th>
+                Birth Date
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+        </tr>
+    }
+</table>
+<script type="text/javascript">
+
+    function GetSearchData() {        
+        strSearch= $('#txtSearch').val();
+        $.ajax(
+            {
+                type: "POST",
+                url: "@Url.Action("GetSearchData", "Client")",
+                data: {
+                    strSearch: strSearch,
+                }
+            });
+    }
+
+</script>
